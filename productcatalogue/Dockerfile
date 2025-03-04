@@ -14,10 +14,13 @@
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 ENV PORT 8010
-RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel shadow-utils && microdnf clean all
-# RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel && microdnf clean all
-# Create a non-root user and switch to that user
-RUN useradd -r -u 10014 
+RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel && microdnf clean all
+# Create a new user with UID 10014
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+
+VOLUME /tmp
+
 USER 10014
 COPY --from=productcatalogue-buildstage /app/target/productcatalogue-0.0.1-SNAPSHOT.jar .
 EXPOSE 8010
