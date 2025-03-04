@@ -17,7 +17,7 @@ ENV PORT 8010
 RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel shadow-utils && microdnf clean all
 # RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel && microdnf clean all
 # Create a new user with UID 10014
-RUN -u 10014 
+RUN useradd -u 10014 
 VOLUME /tmp
 USER 10014
 COPY --from=productcatalogue-buildstage /app/target/productcatalogue-0.0.1-SNAPSHOT.jar .
