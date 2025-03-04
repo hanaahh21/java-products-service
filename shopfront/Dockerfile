@@ -30,11 +30,24 @@
 
 
 
+# FROM openjdk:8-jre
+# RUN mvn clean install
+# ADD target/shopfront-0.0.1-SNAPSHOT.jar app.jar
+# RUN useradd -u 10014 LOGIN
+# VOLUME /tmp
+# USER 10014
+# EXPOSE 8010
+# ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+
+# Build stage
+FROM maven:3.8.6-openjdk-8 AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package
+
+# Runtime stage (smaller image)
 FROM openjdk:8-jre
-RUN mvn clean install
-ADD target/shopfront-0.0.1-SNAPSHOT.jar app.jar
-RUN useradd -u 10014 LOGIN
-VOLUME /tmp
-USER 10014
-EXPOSE 8010
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+WORKDIR /app
+COPY --from=build /app/target/your-app.jar .
+CMD ["java", "-jar", "your-app.jar"]
+
