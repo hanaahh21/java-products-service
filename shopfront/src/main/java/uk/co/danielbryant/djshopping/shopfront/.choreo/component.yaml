@@ -1,0 +1,7 @@
+
+schemaVersion: 1.1
+endpoints:
+  - name: 
+    service:
+    port: 9090
+    type: REST
