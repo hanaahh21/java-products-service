@@ -31,6 +31,7 @@
 
 
 FROM openjdk:8-jre
+RUN mvn clean install
 ADD target/shopfront-0.0.1-SNAPSHOT.jar app.jar
 RUN useradd -u 10014 LOGIN
 VOLUME /tmp
