@@ -34,7 +34,12 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 ENV SERVER_PORT=8020
 
 # Install Java runtime only (lighter than full JDK)
-RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk && microdnf clean all
+RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk shadow utils && microdnf clean all
+
+# Create a new user with UID 10014
+RUN useradd -u 10015 LOGIN
+VOLUME /tmp
+USER 10015
 
 # Set working directory
 WORKDIR /app
