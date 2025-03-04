@@ -39,15 +39,31 @@
 # EXPOSE 8010
 # ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 
-# Build stage
+# Stage 1: Build the application
 FROM maven:3.8.6-openjdk-8 AS build
 WORKDIR /app
 COPY . .
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
-# Runtime stage (smaller image)
+# Stage 2: Create a lightweight runtime image
 FROM openjdk:8-jre
 WORKDIR /app
-COPY --from=build /app/target/your-app.jar .
+
+# Copy the built JAR from the build stage
+COPY --from=build /app/target/shopfront-0.0.1-SNAPSHOT.jar app.jar
+
+# Create user and set permissions
+RUN useradd -u 10014 LOGIN
+USER 10014
+
+# Expose the application port
+EXPOSE 8010
+
+# Define volume (optional, used for caching temp files)
+VOLUME /tmp
+
+# Start the application
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"]
+
 CMD ["java", "-jar", "your-app.jar"]
 
