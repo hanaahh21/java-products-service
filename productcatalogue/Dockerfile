@@ -14,7 +14,8 @@
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 ENV PORT 8010
-RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel && microdnf clean all
+RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel shadow-utils && microdnf clean all
+# RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel && microdnf clean all
 # Create a non-root user and switch to that user
 RUN useradd -r -u 10014 
 USER 10014
