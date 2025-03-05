@@ -15,8 +15,8 @@ RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 COPY --from=build /app/target/shopfront-0.0.1-SNAPSHOT.jar app.jar
 
 # Create user and set permissions
-RUN useradd -u 10014 appuser
-USER appuser
+RUN useradd -u 10014 
+USER 10014
 
 # Expose the application port
 EXPOSE 8010
