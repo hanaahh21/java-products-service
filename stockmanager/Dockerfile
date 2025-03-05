@@ -12,7 +12,7 @@ WORKDIR /app
 COPY pom.xml .
 # generate the maven wrapper script
 RUN mvn wrapper:wrapper
-RUN ./mvnw dependency:go-offline
+RUN ./mvnw dependency:go-offline -Dmaven.repo.local=/tmp/.m2/repository
 # copy the source files to do a build
 COPY . .
 
