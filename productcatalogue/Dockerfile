@@ -61,6 +61,6 @@ USER 10014
 # Make sure this is pointing to the correct path where the jar file is created
 
 COPY --from=productcatalogue-buildstage /app/target/productcatalogue-0.0.1-SNAPSHOT.jar /app/productcatalogue-0.0.1-SNAPSHOT.jar
-
+ADD product-catalogue.yml app-config.yml
 EXPOSE 8010
-CMD ["java", "-jar", "/app/productcatalogue-0.0.1-SNAPSHOT.jar", "server"]
+CMD ["java", "-jar", "/app/productcatalogue-0.0.1-SNAPSHOT.jar", "server", "app-config.yml"]
