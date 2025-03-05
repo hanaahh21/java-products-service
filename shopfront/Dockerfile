@@ -43,7 +43,7 @@
 FROM maven:3.8.6-openjdk-8 AS build
 WORKDIR /app
 COPY . .
-RUN mvn clean package -DskipTests
+RUN mvn clean install -DskipTests
 
 # Stage 2: Create a lightweight runtime image
 FROM openjdk:8-jre
