@@ -63,4 +63,4 @@ USER 10014
 COPY --from=productcatalogue-buildstage /app/target/productcatalogue-0.0.1-SNAPSHOT.jar /app/productcatalogue-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8010
-CMD ["java", "-jar", "/app/productcatalogue-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/productcatalogue-0.0.1-SNAPSHOT.jar", "server"]
