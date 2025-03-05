@@ -26,6 +26,6 @@ RUN microdnf update && microdnf install --nodocs java-1.8.0-openjdk-devel shadow
 RUN useradd -u 10014 LOGIN
 VOLUME /tmp
 USER 10014
-COPY --from=stockmanager-buildstage /app/target/stockmanager-0.0.1-SNAPSHOT.jar .
+COPY --from=stockmanager-buildstage /app/target/stockmanager-0.0.1-SNAPSHOT.jar app/stockmanager-0.0.1-SNAPSHOT.jar
 EXPOSE 8030
-CMD ["java", "-jar", "stockmanager-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "app/stockmanager-0.0.1-SNAPSHOT.jar"]
